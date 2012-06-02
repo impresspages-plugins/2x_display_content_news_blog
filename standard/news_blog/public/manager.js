@@ -37,3 +37,36 @@ _createNewRecordAnswer = function (response) {
         console.log(response);
     }
 }
+
+
+
+deleteRecord = function (recordId, confirmationMessage, postUrl) {
+    if (confirm(confirmationMessage)) {
+        var data = {
+            'rel': 'zone',
+            'type': 'page',
+            'websiteId': '0',
+            'action': 'deletePage',
+            'pageId': recordId,
+            'languageId': $('input[name="i_n_1"]').val(),
+            'zoneName': $('input[name="i_n_2"]').val()
+        }
+        $.ajax({
+            type : 'POST',
+            url : postUrl,
+            data : data,
+            success : _deleteRecordAnswer,
+            dataType : 'json'
+        });
+        return false;
+    }
+}
+
+
+_deleteRecordAnswer = function (response) {
+    if (response && response.status == 'success') {
+        window.location = window.location;
+    } else {
+        console.log(response);
+    }
+}

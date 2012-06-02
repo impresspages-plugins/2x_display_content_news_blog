@@ -203,43 +203,30 @@ class StandardModule {
 
                         $sql_upper = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."`
                               from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                              where `".mysql_real_escape_string($this->currentArea->sortField)."` >= '".mysql_real_escape_string($lock_current[$this->currentArea->sortField])."'
+                              where `".mysql_real_escape_string($this->currentArea->sortField)."` > '".mysql_real_escape_string($lock_current[$this->currentArea->sortField])."'
                               and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add."
-                              order by `".$this->currentArea->sortField."` asc limit 1";
+                              order by `".$this->currentArea->sortField."` asc limit 2";
 
 
                         $rs_upper  = mysql_query($sql_upper);
                         if($rs_upper)
                         if($lock_upper = mysql_fetch_assoc($rs_upper)) { //upper record (need to be moved down)
-                            if($lock_upper[$this->currentArea->sortField] == $lock_current[$this->currentArea->sortField]) {
-
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` - 1
-                                    where `".mysql_real_escape_string($this->currentArea->sortField)."` <= ".mysql_real_escape_string($lock_upper[$this->currentArea->sortField])." and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." ";
-                                $rs_update = mysql_query($sql_update);
-                                if(!$rs_update)
-                                trigger_error($sql." ".mysql_error());
-
-                            }else {
-
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
-                                    where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_upper[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
-
-
-                                $rs_update = mysql_query($sql_update);
-                                if(!$rs_update)
-                                trigger_error($sql_update." ".mysql_error());
-
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-									set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_upper[$this->currentArea->sortField]."
-									where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
-
-                                $rs_update = mysql_query($sql_update);
-                                if(!$rs_update)
-                                trigger_error($sql." ".mysql_error());
+                            $lock_upper2 = mysql_fetch_assoc($rs_upper);
+                        
+                            if ($lock_upper2) {
+                                $newRowNumber = ($lock_upper2['row_number'] + $lock_upper['row_number'])/2;
+                            } else {
+                                $newRowNumber = $lock_upper['row_number'] -1;
                             }
-
+                            
+                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+									set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".$newRowNumber."
+									where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
+//echo $sql_update;
+                                $rs_update = mysql_query($sql_update);
+                                if(!$rs_update)
+                                trigger_error($sql." ".mysql_error());
+                            
                         }
                     }else trigger_error($sql." Element does not exist");
                     echo "
@@ -277,43 +264,29 @@ class StandardModule {
 
                         $sql_under = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."`
                               from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                              where `".mysql_real_escape_string($this->currentArea->sortField)."` <= '".mysql_real_escape_string($lock_current[$this->currentArea->sortField])."' ".$sql_add."
+                              where `".mysql_real_escape_string($this->currentArea->sortField)."` < '".mysql_real_escape_string($lock_current[$this->currentArea->sortField])."' ".$sql_add."
                               and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'
-                              order by `".mysql_real_escape_string($this->currentArea->sortField)."` desc limit 1";
+                              order by `".mysql_real_escape_string($this->currentArea->sortField)."` desc limit 2";
 
                         $rs_under  = mysql_query($sql_under);
                         if($rs_under)
                         if($lock_under = mysql_fetch_assoc($rs_under)) { //under record (need to be moved up)
-                            if($lock_under[$this->currentArea->sortField] == $lock_current[$this->currentArea->sortField]) {
+                            $lock_under2 = mysql_fetch_assoc($rs_under);
 
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` + 1
-                                    where `".mysql_real_escape_string($this->currentArea->sortField)."` >= ".mysql_real_escape_string($lock_under[$this->currentArea->sortField])."
-                                    and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add."";
-
-                                $rs_update = mysql_query($sql_update);
-                                if(!$rs_update) {
-                                    trigger_error($sql_update." ".mysql_error());
-                                }
-                            }else {
-
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
-                                    where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_under[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
-
-                                $rs_update = mysql_query($sql_update);
-                                if(!$rs_update)
-                                trigger_error($sql_update." ".mysql_error());
-
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_under[$this->currentArea->sortField]."
-                                    where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add." limit 1";
-
-                                $rs_update = mysql_query($sql_update);
-                                if(!$rs_update)
-                                trigger_error($sql_update." ".mysql_error());
+                            if ($lock_under2) {
+                                $newRowNumber = ($lock_under2['row_number'] + $lock_under['row_number'])/2;
+                            } else {
+                                $newRowNumber = $lock_under['row_number'] + 1;
                             }
-
+                            
+                            $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                                set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".$newRowNumber."
+                                where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add." limit 1";
+//echo $sql_update;
+                                $rs_update = mysql_query($sql_update);
+                                if(!$rs_update)
+                                trigger_error($sql." ".mysql_error());                            
+                            
                         }
                     }else trigger_error($sql." Element does not exist");
                     echo "document.location = document.location;";
@@ -1488,7 +1461,9 @@ class StandardModule {
             $answer .= '
       </tr>';
             //end column names
-
+            $model = new \Modules\standard\news_blog\Model();
+            $managementUrl = $model->getMenuManagementWorkerUrl();
+            
             for($i=0; $i<$limit; $i++) {
                 $lock = mysql_fetch_assoc($rs);
                 $answer .= '<tr id="table_row_'.$lock[$this->currentArea->dbPrimaryKey].'">';
@@ -1514,7 +1489,7 @@ class StandardModule {
                     $answer .= '<td ><form onSubmit="return false;" action=""><input onblur="LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=new_row_number&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'&amp;new_row_number=\' + encodeURIComponent(this.value))" style="width:30px;" name="sortField_'.$lock[$this->currentArea->dbPrimaryKey].'" value="'.$lock[$this->currentArea->sortField].'" /></form></td>';
                     if($this->currentArea->sortType == 'pointers')
                     $answer .= '<td >
-                        <a class="move_down"
+                        <a class="move_up"
                         title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'move_down')).'"
                         onclick="
                         LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=row_number_increase&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\')
@@ -1525,7 +1500,7 @@ class StandardModule {
                         onclick="
                         LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=row_number_decrease&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\')
                         "
-                        class="move_up">&nbsp;</a></td>';
+                        class="move_down">&nbsp;</a></td>';
                 }
 
                 foreach($this->currentArea->elements as $key => $value) {
@@ -1536,7 +1511,7 @@ class StandardModule {
 
 
                 if($this->currentArea->allowDelete)
-                $answer .= '<td><a class="delete" onclick="confirmDelete(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=delete&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\', \''.$parametersMod->getValue('developer', 'std_mod','admin_translations','are_you_sure_you_wish_to_delete').'\'); return false;" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','delete').'">&nbsp;</a></td>';
+                $answer .= '<td><a class="delete" onclick="deleteRecord('.$lock[$this->currentArea->dbPrimaryKey].', \''.$parametersMod->getValue('developer', 'std_mod','admin_translations','are_you_sure_you_wish_to_delete').'\', \''.$managementUrl.'\'); return false;" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','delete').'">&nbsp;</a></td>';
                 $answer .='
           </tr>';
             }

@@ -1,8 +1,8 @@
 <?php
-
 /**
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
+ * @license see ip_license.html
  */
 
 namespace Modules\standard\news_blog;
@@ -29,27 +29,14 @@ class Manager {
         global $parametersMod;
         global $log;
 
-
-        
-        
+        $model = new Model();
         
         $answer = '';
 
-        $answer .= Manager\HtmlOutput::header();
-
-        if (isset($_SESSION['modules']['multisite']['note'])) {
-            $answer .= Manager\HtmlOutput::error(htmlspecialchars($_SESSION['modules']['multisite']['note']));
-            unset($_SESSION['modules']['multisite']['note']);
-        }
+        $itemsArea = new Manager\ItemsArea();  //this class is in file items_area.php
+        $this->standardModule = new \Modules\standard\news_blog\StandardModule($itemsArea); //create management tool
+        $answer .= $this->standardModule->manage();  //return management tools
         
-        $form = new \Library\Php\Form\Standard(Manager\Config::getCreateFields());
-        $answer .= '<div class="ipAdminWrapper"><h1 class="ipaHeadline">News / Blog</h1></div>';
-        
-        $tmpHtml = $form->generateForm('Create', $cms->generateWorkerUrl($cms->curModId));
-        $answer .= Manager\HtmlOutput::block($tmpHtml);
-
-        $answer .= Manager\HtmlOutput::footer();
-
         return $answer;
     }
 

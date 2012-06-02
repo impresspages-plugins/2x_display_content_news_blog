@@ -1,9 +1,10 @@
-<?php 
+<?php
 /**
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license	GNU/GPL, see ip_license.html
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
+ * @license see ip_license.html
  */
+
 namespace Modules\standard\news_blog; 
 
 
@@ -22,7 +23,7 @@ class Zone extends \Modules\standard\content_management\Zone {
     $elements = array();
     if ($tmpElements) {
       foreach ($tmpElements as $key => $tmpElement) {
-        $element = new Element();
+        $element = new NewsElement();
         $element->realElement = $tmpElement;
         $elements[] = $element;
       } 
@@ -37,7 +38,7 @@ class Zone extends \Modules\standard\content_management\Zone {
   function getElement($elementId) {
     $tmpAnswer = parent::getElement($elementId);
     if ($tmpAnswer) {
-      $element = new Element();
+      $element = new NewsElement();
       $element->realElement = $tmpAnswer;
       return $element;
     } else {
@@ -50,7 +51,7 @@ class Zone extends \Modules\standard\content_management\Zone {
   function getFirstElement($parentId, $level) {
     $tmpAnswer = parent::getFirstElement($parentId, $level);
     if ($tmpAnswer) {
-      $element = new Element();
+      $element = new NewsElement();
       $element->realElement = $tmpAnswer;
       return $element;
     } else {
@@ -61,7 +62,7 @@ class Zone extends \Modules\standard\content_management\Zone {
   function findElement($urlVars, $getVars) {
     $tmpAnswer = parent::findElement($urlVars, $getVars);
     if ($tmpAnswer) {
-      $element = new Element();
+      $element = new NewsElement();
       $element->realElement = $tmpAnswer;
       return $element;
     } else {

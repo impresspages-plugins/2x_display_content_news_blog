@@ -1,8 +1,8 @@
 <?php
 /**
- * @package   ImpressPages
- * @copyright Copyright (C) 2011 ImpressPages LTD.
- * @license   GNU/GPL, see ip_license.html
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
+ * @license see ip_license.html
  */
 
 namespace Modules\standard\news_blog;

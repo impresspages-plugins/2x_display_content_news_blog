@@ -7,9 +7,6 @@
 
 namespace Modules\standard\news_blog;
 
-if (!defined('BACKEND'))
-    exit;
-
 
 require_once (BASE_DIR . INCLUDE_DIR . 'db_system.php');
 

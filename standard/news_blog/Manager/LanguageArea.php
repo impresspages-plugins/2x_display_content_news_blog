@@ -6,7 +6,7 @@ if (!defined('BACKEND')) exit;  //this file can't be accessed directly
 
 require_once(__DIR__.'/../std_mod/std_mod.php'); //include standard module to manage data records
 
-class ItemsArea extends \Modules\standard\news_blog\Area{  //extending standard data management module area
+class LanguageArea extends \Modules\standard\news_blog\Area{  //extending standard data management module area
 
     function __construct(){
         global $parametersMod;  //global object to get parameters
@@ -34,7 +34,7 @@ class ItemsArea extends \Modules\standard\news_blog\Area{  //extending standard 
         );
         $this->addElement($element);
 
-        $this->addArea(new ZoneArea());
+        $this->addArea(new StreamArea());
     }
     
 

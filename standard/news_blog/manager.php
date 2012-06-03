@@ -33,7 +33,7 @@ class Manager {
         
         $answer = '';
 
-        $itemsArea = new Manager\ItemsArea();  //this class is in file items_area.php
+        $itemsArea = new Manager\LanguageArea();  //this class is in file items_area.php
         $this->standardModule = new \Modules\standard\news_blog\StandardModule($itemsArea); //create management tool
         $answer .= $this->standardModule->manage();  //return management tools
         

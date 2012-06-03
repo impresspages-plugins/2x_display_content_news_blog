@@ -7,7 +7,7 @@ if (!defined('BACKEND')) exit;  //this file can't be accessed directly
 require_once(__DIR__.'/../std_mod/std_mod.php'); //include standard module to manage data records
 
 
-class ZoneArea extends \Modules\standard\news_blog\Area{  //extending standard data management module area
+class StreamArea extends \Modules\standard\news_blog\Area{  //extending standard data management module area
 
     function __construct(){
         global $parametersMod;  //global object to get parameters
@@ -15,13 +15,13 @@ class ZoneArea extends \Modules\standard\news_blog\Area{  //extending standard d
         parent::__construct(
                 array(
                         'dbTable' => 'zone',
-                        'title' => 'Zone',
+                        'title' => 'Stream',
                         'dbPrimaryKey' => 'name',
                         'searchable' => false,
                         'orderBy' => 'row_number',
                         'allowUpdate' => false,
-                        'allowDelete' => false,
-                        'allowInsert' => false,
+                        'allowDelete' => true,
+                        'allowInsert' => true,
                         'dbReference' => '',
                         'whereCondition' => ' `associated_module` = \'news_blog\' '
                 )

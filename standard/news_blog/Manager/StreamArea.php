@@ -36,7 +36,35 @@ class StreamArea extends \Modules\standard\news_blog\Area{  //extending standard
                 )
         );
         $this->addElement($element);
+        
+        $element = new \Modules\standard\news_blog\ElementText(
+                array(
+                        'title' => '',
+                        'useInBreadcrumb' => false,
+                        'showOnList' => false,
+                        'defaultValue' => isset($_GET['road'][0]) ? $_GET['road'][0] : '',
+                        'hidden' => true,
+                        'visibleOnInsert' => false,
+                        'dbField' => 'languageId'
+                )
+        );
+        $this->addElement($element);
+        
 
+        global $cms;
+        $element = new \Modules\standard\news_blog\ElementText(
+                array(
+                        'title' => '',
+                        'useInBreadcrumb' => false,
+                        'showOnList' => false,
+                        'defaultValue' => $cms->generateWorkerUrl(),
+                        'hidden' => true,
+                        'visibleOnInsert' => false,
+                        'dbField' => 'managementUrl'
+                )
+        );
+        $this->addElement($element);        
+        
         $this->addArea(new RecordArea());
         
     }

@@ -1203,7 +1203,18 @@ class StandardModule {
         global $parametersMod;
 
         $answer = '';
-        $answer .= '<form id="std_mod_new_f" onsubmit="createNewRecord(this);" target="std_mod_new_f_iframe" action="'.$this->generateUrlLevel($this->level).'" method="post" enctype="multipart/form-data">';
+        
+        switch(count($_GET['road'])) {
+            case 1:
+                $onSubmit = 'createStream(this);';
+                break;
+            case 2:
+                $onSubmit = 'createNewRecord(this);';
+                break;
+            default:
+                $onSubmit = '';
+        }
+        $answer .= '<form id="std_mod_new_f" onsubmit="'.$onSubmit.'" target="std_mod_new_f_iframe" action="'.$this->generateUrlLevel($this->level).'" method="post" enctype="multipart/form-data">';
         $answer .= '<div class="search">';
         $answer .= '<input type="hidden" name="type" value="ajax">';
         $answer .= '<input type="hidden" name="action" value="insert">';
@@ -1509,9 +1520,20 @@ class StandardModule {
                     }
                 }
 
+                
+                switch(count($_GET['road'])) {
+                    case 1:
+                        $deleteAction = 'deleteStream(\''.$lock[$this->currentArea->dbPrimaryKey].'\', \''.$parametersMod->getValue('developer', 'std_mod','admin_translations','are_you_sure_you_wish_to_delete').'\', \''.$managementUrl.'\'); return false;';
+                        break;
+                    case 2:
+                        $deleteAction = 'deleteRecord('.$lock[$this->currentArea->dbPrimaryKey].', \''.$parametersMod->getValue('developer', 'std_mod','admin_translations','are_you_sure_you_wish_to_delete').'\', \''.$managementUrl.'\'); return false;';
+                        break;
+                    default:
+                        $deleteAction = '';
+                }
 
                 if($this->currentArea->allowDelete)
-                $answer .= '<td><a class="delete" onclick="deleteRecord('.$lock[$this->currentArea->dbPrimaryKey].', \''.$parametersMod->getValue('developer', 'std_mod','admin_translations','are_you_sure_you_wish_to_delete').'\', \''.$managementUrl.'\'); return false;" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','delete').'">&nbsp;</a></td>';
+                $answer .= '<td><a class="delete" onclick="'.$deleteAction.'" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','delete').'">&nbsp;</a></td>';
                 $answer .='
           </tr>';
             }
@@ -1610,6 +1632,16 @@ class StandardModule {
 
         $answer .= '</ul>';
 
+        switch(count($_GET['road'])) {
+            case 1:
+                $onSubmit = 'createStream(this);';
+                break;
+            case 2:
+                $onSubmit = 'createNewRecord(this);';
+                break;
+            default:
+                $onSubmit = '';
+        }        
 
 
         if($this->currentArea->allowDelete) {
@@ -1626,7 +1658,7 @@ class StandardModule {
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
 						<div class="moduleControlButtons">
-							<a onclick="createNewRecord(this);" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','save')).'</a>
+							<a onclick="'.$onSubmit.'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','save')).'</a>
 							<a onclick="std_mod_hide_popups();" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','cancel')).'</a>
 							<div class="clear"></div>
 						</div>

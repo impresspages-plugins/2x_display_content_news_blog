@@ -68,8 +68,41 @@ class IpNewsBlog extends \Modules\standard\content_management\Widget{
          $parentElementId = null;
          $startFrom = 0;
          $limit = null;
+         $recordsPerPage = 10;
          $includeHidden = false;
-         $reverseOrder = false;
+         $reverseOrder = true;
+         
+         if (isset($data['recordsPerPage'])) {
+             $recordsPerPage = $data['recordsPerPage'];
+         }
+         
+         
+         if ($data['pagination']) {
+             $limit = $recordsPerPage;
+             $data['curPage'] = 1;
+             if(isset($_GET['nbp'])) { 
+                 $data['curPage'] = (int)$_GET['nbp'];
+                 $startFrom = ((int)$_GET['nbp'] - 1) * $recordsPerPage;
+             }
+             $pageCount = ceil(count($zone->getElements($language, $parentElementId, 0, null, $includeHidden, $reverseOrder)) / $recordsPerPage);
+             $getVars = $site->getGetVars();
+             $urlVars = $site->getUrlVars();
+             $languageId = $site->getCurrentLanguage()->getId();
+             $zoneName = $site->getCurrentZone()->getName();
+             for($i = 1; $i <= $pageCount; $i++) {
+                 if ($i == 1) {
+                     unset($getVars['nbp']);
+                 } else {
+                     $getVars['nbp'] = $i;
+                 }
+                 $url = $site->generateUrl($languageId, $zoneName, $urlVars, $getVars);
+                 $data['pages'][$i] = array(
+                     'url' => $url,
+                     'current' => $data['curPage'] == $i
+                 );
+             }
+             
+         }
          
          $elements = $zone->getElements($language, $parentElementId, $startFrom, $limit, $includeHidden, $reverseOrder);
         

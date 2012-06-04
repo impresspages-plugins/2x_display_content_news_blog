@@ -1632,6 +1632,10 @@ class StandardModule {
 
         $answer .= '</ul>';
 
+        if (!isset($_GET['road'])) {
+            $_GET['road'] = array();
+        }
+        
         switch(count($_GET['road'])) {
             case 1:
                 $onSubmit = 'createStream(this);';

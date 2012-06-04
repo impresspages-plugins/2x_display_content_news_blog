@@ -64,9 +64,11 @@ class ElementManagementLink extends \Modules\standard\news_blog\Element{
     function previewValue($record, $area){
         global $site;
         global $parametersMod;
-        $newsZone = $site->getZoneByModule('standard', 'news_blog');
         
-        $answer = '<a target="_blank" href="'.$newsZone->getElement($record[$this->dbField])->getLink().'?cms_action=manage">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'edit')).'</a>';
+        $zoneName = $_GET['road'][1];
+        $zone = $site->getZone($zoneName);
+
+        $answer = '<a target="_blank" href="'.$zone->getElement($record[$this->dbField])->getLink().'?cms_action=manage">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'edit')).'</a>';
         return $answer;
     }
 

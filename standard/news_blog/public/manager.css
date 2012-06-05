@@ -1,0 +1,21 @@
+.ipAdminWidget-IpNewsBlog .ipaStream,
+.ipAdminWidget-IpNewsBlog .ipaTitleLevel,
+.ipAdminWidget-IpNewsBlog .ipaShowReadMore,
+.ipAdminWidget-IpNewsBlog .ipaPagination {
+    margin-bottom: 10px;
+}
+
+/*
+    Temporary: core doesn't have defined styles for the following elements
+*/
+.ipAdminSelect {
+    background-color: #fff;
+    border: 1px solid #96979a;
+    color: #2f313f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 26px;
+    padding: 4px;
+    width: 95%;
+}
+.ipAdminCheckbox {}

@@ -75,6 +75,10 @@ class IpNewsBlog extends \Modules\standard\content_management\Widget{
          if (isset($data['recordsPerPage'])) {
              $recordsPerPage = $data['recordsPerPage'];
          }
+         if (!isset($data['titleLevel'])) {
+             $data['titleLevel'] = 2;
+         };
+         
          
          
          if ($data['pagination']) {
@@ -108,7 +112,6 @@ class IpNewsBlog extends \Modules\standard\content_management\Widget{
         
          $data['elements'] = $elements;
          $data['zone'] = $zone;
-         $data['titleLevel'] = 2;
          $data['addReadMoreLink'] = 1;
         
          return parent::previewHtml($instanceId, $data, $layout);

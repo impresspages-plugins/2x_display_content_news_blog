@@ -12,6 +12,7 @@ if ($pagination && is_array($pages)) {
     }
     echo $this->renderWidget('IpText', array('text' => $pagesHtml));
 }
+//--
 
 //loop all news / blog records
 foreach ($elements as $element) {
@@ -21,12 +22,14 @@ foreach ($elements as $element) {
     foreach ($widgetRecords as $key => $widgetRecord) {
         $widgetHtml = \Modules\standard\content_management\Model::generateWidgetPreview($widgetRecord['instanceId'], false);
          
-        //put link to whole article on first title widget
+        //put link to article on first title widget. If there is no title widget, add it.
         if ($key == 0) {
             $count = 0;
-            $widgetHtml = preg_replace('/<h[1-6](.*?)<\/h[1-6]>/', '<h'.$titleLevel.'$1</h'.$titleLevel.'>', $widgetHtml, 1, $count);
+            $widgetHtml = preg_replace('/<h[1-6](.*?)>(.*?)<\/h[1-6]>/', '<h'.$titleLevel.'$1><a href="'.$element->getLink().'">$2</a></h'.$titleLevel.'>', $widgetHtml, 1, $count);
             if ($count == 0) {
-                echo $this->renderWidget('IpTitle', array('title' => $element->getPageTitle()), 'level'.$titleLevel);
+                $autoTitle = $this->renderWidget('IpTitle', array('title' => $element->getPageTitle()), 'level'.$titleLevel); 
+                $autoTitle = preg_replace('/<h[1-6](.*?)>(.*?)<\/h[1-6]>/', '<h'.$titleLevel.'$1><a href="'.$element->getLink().'">$2</a></h'.$titleLevel.'>', $autoTitle, 1, $count);
+                echo $autoTitle;
             }
         }
         echo $widgetHtml;
@@ -41,10 +44,12 @@ foreach ($elements as $element) {
         echo $this->renderWidget('IpText', array('text' => '<p><a class="ipmNewsBlogMore" href="'.$element->getLink().'">'.$this->escPar('standard/news_blog/translations/read_more').'</a></p>'));
     }
 }
+//--
 
 
 //print links to pages
 if ($pagination && is_array($pages)) {
     echo $this->renderWidget('IpText', array('text' => $pagesHtml));
 }
+//--
 ?>

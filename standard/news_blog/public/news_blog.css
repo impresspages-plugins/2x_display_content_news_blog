@@ -3,3 +3,8 @@
 .ipmNewsBlogPageCurrent {
     font-weight: bold;
 }
+
+
+.ipWidget-IpNewsBlogBreak {
+    display: none;
+}

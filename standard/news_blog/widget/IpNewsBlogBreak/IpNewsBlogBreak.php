@@ -18,18 +18,15 @@ class IpNewsBlogBreak extends \Modules\standard\content_management\Widget{
     
     public function previewHtml($instanceId, $data, $layout) {
         global $site;
-        if ($site->managementState()) {
+        if (
+                $site->managementState() ||
+                isset($_POST['g']) && $_POST['g'] == 'standard' &&
+                isset($_POST['m']) && $_POST['m'] == 'content_management' &&
+                isset($_POST['a']) && ($_POST['a'] == 'updateWidget') 
+        ) {
             return parent::previewHtml($instanceId, $data, $layout);
         } else {
             return '';
-        }
-    }
-    
-    public function getLayouts() {
-        if ($site->managementState()) {
-            return array('default');
-        } else {
-            return array('asdf');
         }
     }
     

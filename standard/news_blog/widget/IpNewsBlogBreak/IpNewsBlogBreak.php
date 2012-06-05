@@ -22,7 +22,7 @@ class IpNewsBlogBreak extends \Modules\standard\content_management\Widget{
                 $site->managementState() ||
                 isset($_POST['g']) && $_POST['g'] == 'standard' &&
                 isset($_POST['m']) && $_POST['m'] == 'content_management' &&
-                isset($_POST['a']) && ($_POST['a'] == 'updateWidget') 
+                isset($_POST['a']) 
         ) {
             return parent::previewHtml($instanceId, $data, $layout);
         } else {

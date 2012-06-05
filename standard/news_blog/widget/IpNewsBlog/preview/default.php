@@ -22,6 +22,14 @@ foreach ($elements as $element) {
     
     //loop all widgets
     foreach ($widgetRecords as $key => $widgetRecord) {
+        if ($widgetRecord['name'] == 'IpNewsBlogBreak') {
+            //intro separator found. Stop printing widgets and put "read more" link to full article.
+            if ($addReadMoreLink) {
+                echo $this->renderWidget('IpText', array('text' => '<p><a class="ipmNewsBlogMore" href="'.$element->getLink().'">'.$this->escPar('standard/news_blog/translations/read_more').'</a></p>'));
+            }
+            break;
+        }
+        
         $widgetHtml = \Modules\standard\content_management\Model::generateWidgetPreview($widgetRecord['instanceId'], false);
          
         //put link to article on first title widget. If there is no title widget, add it.
@@ -45,9 +53,6 @@ foreach ($elements as $element) {
         echo $autoTitle;
     }
     
-    if ($addReadMoreLink) {
-        echo $this->renderWidget('IpText', array('text' => '<p><a class="ipmNewsBlogMore" href="'.$element->getLink().'">'.$this->escPar('standard/news_blog/translations/read_more').'</a></p>'));
-    }
 }
 //--
 

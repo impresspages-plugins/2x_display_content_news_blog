@@ -14,10 +14,6 @@
         <?php } ?>
     </select>
 </div>
-<div class="ipaShowReadMore">
-    <label class="ipAdminLabel"><?php echo $this->escPar('standard/news_blog/admin_translations/show_read_more') ?></label>
-    <input type="checkbox" name="showReadMore" class="ipAdminCheckbox" <?php echo isset($showReadMore) && (int)$showReadMore ? 'checked="checked"' : ''; ?>" />
-</div>
 <div class="ipaPagination">
     <label class="ipAdminLabel"><?php echo $this->escPar('standard/news_blog/admin_translations/pagination') ?></label>
     <input type="checkbox" name="pagination" class="ipAdminCheckbox" <?php echo isset($pagination) && (int)$pagination ? 'checked="checked"' : ''; ?>" />

@@ -47,6 +47,7 @@ class InstallModel
             $zonesModule = new \Modules\developer\zones\ZonesArea();
             $zonesModule->after_insert($zoneId);
             $this->updateAssociatedModule($zoneId);
+            $this->removeFromMenuManagement($name);
         } else {
             trigger_error($sql." ".mysql_error());
         }
@@ -116,5 +117,15 @@ class InstallModel
         }
 
     }
+    
+    
+    public function removeFromMenuManagement($name) {
+        global $parametersMod;
+        $zonesModule = new \Modules\developer\zones\ZonesArea();
+        $associatedZonesStr = $zonesModule->removeFromAssociatedZones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $name);
+        $parametersMod->setValue('standard', 'menu_management', 'options', 'associated_zones', $associatedZonesStr);
+    }
+    
+    
 
 }

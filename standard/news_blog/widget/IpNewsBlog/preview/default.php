@@ -1,6 +1,6 @@
 <?php
 //print pagination
-if ($pagination && is_array($pages)) {
+if ($pagination && count($pages) > 0) {
     $pagesHtml = '';
     foreach($pages as $key => $page) {
         if ($page['current']) {
@@ -58,7 +58,7 @@ foreach ($elements as $element) {
 
 
 //print pagination
-if ($pagination && is_array($pages)) {
+if ($pagination && count($pages) > 0) {
     echo $this->renderWidget('IpText', array('text' => $pagesHtml));
 }
 //--

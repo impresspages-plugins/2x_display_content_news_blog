@@ -12,11 +12,6 @@ $moduleTitle["standard"]["news_blog"] = "News / Blog";
   $parameterGroupTitle["standard"]["news_blog"]["admin_translations"] = "Admin translations";
   $parameterGroupAdmin["standard"]["news_blog"]["admin_translations"] = "1";
 
-    $parameterTitle["standard"]["news_blog"]["admin_translations"]["show_read_more"] = "Show read more link";
-    $parameterValue["standard"]["news_blog"]["admin_translations"]["show_read_more"] = "Show \"Read more\" link";
-    $parameterAdmin["standard"]["news_blog"]["admin_translations"]["show_read_more"] = "0";
-    $parameterType["standard"]["news_blog"]["admin_translations"]["show_read_more"] = "string";
-
     $parameterTitle["standard"]["news_blog"]["admin_translations"]["title_small"] = "Title small";
     $parameterValue["standard"]["news_blog"]["admin_translations"]["title_small"] = "Small";
     $parameterAdmin["standard"]["news_blog"]["admin_translations"]["title_small"] = "0";

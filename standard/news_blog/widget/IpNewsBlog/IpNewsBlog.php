@@ -32,10 +32,6 @@ class IpNewsBlog extends \Modules\standard\content_management\Widget{
             $data['recordsPerPage'] = 10;
         }
 
-        if (!isset($data['showReadMore'])) {
-            $data['showReadMore'] = 1;
-        }
-        
         if (!isset($data['titleLevel']) || $data['titleLevel'] == '') {
             $data['titleLevel'] = 2;
         }
@@ -93,6 +89,7 @@ class IpNewsBlog extends \Modules\standard\content_management\Widget{
              $urlVars = $site->getUrlVars();
              $languageId = $site->getCurrentLanguage()->getId();
              $zoneName = $site->getCurrentZone()->getName();
+             $data['pages'] = array();
              for($i = 1; $i <= $pageCount; $i++) {
                  if ($i == 1) {
                      unset($getVars['nbp']);
@@ -112,7 +109,6 @@ class IpNewsBlog extends \Modules\standard\content_management\Widget{
         
          $data['elements'] = $elements;
          $data['zone'] = $zone;
-         $data['addReadMoreLink'] = 1;
         
          return parent::previewHtml($instanceId, $data, $layout);
     }

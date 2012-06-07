@@ -19,6 +19,7 @@ class Zone extends \Modules\standard\content_management\Zone {
   function getElements($languageId = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
     global $site;
 
+
     $tmpElements = parent::getElements($languageId, $parentElementId, $startFrom, $limit, $includeHidden, $reverseOrder);
     $elements = array();
     if ($tmpElements) {

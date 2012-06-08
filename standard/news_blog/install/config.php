@@ -12,7 +12,7 @@ $moduleTitle["standard"]["news_blog"] = "News / Blog";
   $parameterGroupTitle["standard"]["news_blog"]["admin_translations"] = "Admin translations";
   $parameterGroupAdmin["standard"]["news_blog"]["admin_translations"] = "1";
 
-    $parameterTitle["standard"]["news_blog"]["admin_translations"]["title_small"] = "Title small";
+    $parameterTitle["standard"]["news_blog"]["admin_translations"]["title_small"] = "Title - small";
     $parameterValue["standard"]["news_blog"]["admin_translations"]["title_small"] = "Small";
     $parameterAdmin["standard"]["news_blog"]["admin_translations"]["title_small"] = "0";
     $parameterType["standard"]["news_blog"]["admin_translations"]["title_small"] = "string";
@@ -47,12 +47,12 @@ $moduleTitle["standard"]["news_blog"] = "News / Blog";
     $parameterAdmin["standard"]["news_blog"]["admin_translations"]["stream"] = "0";
     $parameterType["standard"]["news_blog"]["admin_translations"]["stream"] = "string";
 
-    $parameterTitle["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "Layout minimal";
+    $parameterTitle["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "Layout - minimal";
     $parameterValue["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "Minimal";
     $parameterAdmin["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "0";
     $parameterType["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "string";
 
-    $parameterTitle["standard"]["news_blog"]["admin_translations"]["layout_news"] = "Layout news";
+    $parameterTitle["standard"]["news_blog"]["admin_translations"]["layout_news"] = "Layout - news";
     $parameterValue["standard"]["news_blog"]["admin_translations"]["layout_news"] = "News";
     $parameterAdmin["standard"]["news_blog"]["admin_translations"]["layout_news"] = "0";
     $parameterType["standard"]["news_blog"]["admin_translations"]["layout_news"] = "string";
@@ -76,13 +76,13 @@ $moduleTitle["standard"]["news_blog"] = "News / Blog";
   $parameterGroupTitle["standard"]["news_blog"]["widget_IpNewsBlogBreak"] = "Widget IpNewsBlogBreak";
   $parameterGroupAdmin["standard"]["news_blog"]["widget_IpNewsBlogBreak"] = "0";
 
-    $parameterTitle["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["intro_break"] = "Intro break";
-    $parameterValue["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["intro_break"] = "*** Intro break ***";
-    $parameterAdmin["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["intro_break"] = "0";
-    $parameterType["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["intro_break"] = "string";
+    $parameterTitle["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["break"] = "Lead break";
+    $parameterValue["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["break"] = "*** Lead break (invisible for users) ***";
+    $parameterAdmin["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["break"] = "0";
+    $parameterType["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["break"] = "string";
 
     $parameterTitle["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["widget_title"] = "Widget title";
-    $parameterValue["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["widget_title"] = "Intro break";
+    $parameterValue["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["widget_title"] = "Lead break";
     $parameterAdmin["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["widget_title"] = "0";
     $parameterType["standard"]["news_blog"]["widget_IpNewsBlogBreak"]["widget_title"] = "string";
 

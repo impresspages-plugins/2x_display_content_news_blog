@@ -47,10 +47,10 @@ $moduleTitle["standard"]["news_blog"] = "News / Blog";
     $parameterAdmin["standard"]["news_blog"]["admin_translations"]["stream"] = "0";
     $parameterType["standard"]["news_blog"]["admin_translations"]["stream"] = "string";
 
-    $parameterTitle["standard"]["news_blog"]["admin_translations"]["layout_blog"] = "Layout blog";
-    $parameterValue["standard"]["news_blog"]["admin_translations"]["layout_blog"] = "Blog";
-    $parameterAdmin["standard"]["news_blog"]["admin_translations"]["layout_blog"] = "0";
-    $parameterType["standard"]["news_blog"]["admin_translations"]["layout_blog"] = "string";
+    $parameterTitle["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "Layout minimal";
+    $parameterValue["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "Minimal";
+    $parameterAdmin["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "0";
+    $parameterType["standard"]["news_blog"]["admin_translations"]["layout_minimal"] = "string";
 
     $parameterTitle["standard"]["news_blog"]["admin_translations"]["layout_news"] = "Layout news";
     $parameterValue["standard"]["news_blog"]["admin_translations"]["layout_news"] = "News";

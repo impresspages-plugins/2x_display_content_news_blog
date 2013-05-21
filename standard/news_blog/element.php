@@ -36,33 +36,6 @@ class NewsElement {
   }
   
 
-  public function generateContent() {
-    global $site;
-
-    if (count($site->urlVars) == 0) {
-      return $site->getZone($this->getZoneName())->generateMainPage();
-    }
-
-    $widgets = $this->getWidgets();
-    $initHtml = '';
-    foreach ($widgets as $key => &$widget) {
-      eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
-
-      if(!isset($inited_modules[$widget['module_key']])) {
-        if (method_exists ('\\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Template', "initHtml")) {
-          eval('$initHtml .= \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Template::initHtml();');
-        }
-      }
-      $widget['html'] = $new_module->make_html($widget['module_id']);
-    }
-    
-    $answer = '';
-    $answer .= $initHtml;
-    $answer .= Template::generatePage($this, $widgets); 
-    
-    return $answer;
-  }
-  
 
   
 }
